@@ -6,10 +6,11 @@
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 
+U8G2_SH1106_128X64_NONAME_F_HW_I2C screen(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 #include "JDevRendering/jdr_base_functions.h"
 #include "JDevRendering/jdr_super_functions.h"
+#include "JDevRendering/JDevRaycaster.h"
 
-U8G2_SH1106_128X64_NONAME_F_HW_I2C screen(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 void jdr_plot(int x, int y, Colour32 colour)
 {
@@ -53,13 +54,14 @@ void setup()
 
 void loop()
 {
-	static uint16_t z = 0, a = 0;
-	jdr_startDrawing();
-	{
-		jdr_plot(z - 1, a, 1);
-		jdr_plot(z, a, 1);
-	}
-	jdr_stopDrawing();
-	if(z==128){a++;}
-	z += 2;
+	raycasterLoop();
+	// static uint16_t z = 0, a = 0;
+	// jdr_startDrawing();
+	// {
+	// 	jdr_plot(z - 1, a, 1);
+	// 	jdr_plot(z, a, 1);
+	// }
+	// jdr_stopDrawing();
+	// if(z==128){a++;}
+	// z += 2;
 }
